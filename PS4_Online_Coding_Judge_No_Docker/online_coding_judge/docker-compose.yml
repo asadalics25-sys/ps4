@@ -1,0 +1,15 @@
+# Optional web-app container deployment only; code execution uses the remote Judge0 API.
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      SECRET_KEY: "replace-with-a-long-random-secret"
+      ADMIN_PASSWORD: "replace-this-admin-password"
+      JUDGE_MODE: "docker"
+      JUDGE_IMAGE: "online-judge-runner:latest"
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
